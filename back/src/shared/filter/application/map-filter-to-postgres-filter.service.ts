@@ -1,6 +1,6 @@
 import {injectable} from "inversify";
-import {Filter} from "../domain/entities/filter.entity";
-import {InFilter} from "../domain/entities/in-filter.entity";
+import {Filter} from "../domain/entities/filter";
+import {InFilter} from "../domain/entities/in.filter";
 import {In} from "typeorm";
 import {FiltersTypes} from "../domain/types/filters.type";
 

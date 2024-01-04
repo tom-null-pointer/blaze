@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import {Environments} from "../shared/enums/environments.enum";
+import {Environments} from "../../shared/enums/environments.enum";
 export class PGDatasource extends DataSource {
     constructor(){
         super({
@@ -9,11 +9,13 @@ export class PGDatasource extends DataSource {
             username: process.env.PG_DATASOURCE_USER,
             password: process.env.PG_DATASOURCE_PASS,
             database: process.env.PG_DATASOURCE_DB_NAME,
-            synchronize: true,
+            synchronize: false,
             logging: process.env.NODE_ENV !== Environments.PROD ? process.env.PG_DATASOURCE_LOGGING === 'true' : false,
-            entities: ["src/**/*.entity.ts"],
+            entities: ["./**/*.entity.{js,ts}"],
             subscribers: [],
-            migrations: [],
+            // migrations: ['./dist/datasources/core-postgres/migrations/*.js'],
+            migrations: ['./**/datasources/core-postgres/migrations/*.{js,ts}'],
+            migrationsTableName: 'migration',
         });
     }
 }

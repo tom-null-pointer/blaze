@@ -18,7 +18,7 @@ import {Team} from "../../team/domain/entities/team.entity";
 import {CreateCoachDto} from "../../coach/infra/dtos/create-coach.dto";
 import {UpsertCoachesService} from "../../coach/domain/services/upsert-coaches.service";
 import {BadRequestException} from "../../../shared/errors/bad-request.exception";
-import {CustomError} from "../../../shared/errors/custom-error";
+import {CustomException} from "../../../shared/errors/custom-exception";
 import {InternalServerException} from "../../../shared/errors/internal-server.exception";
 
 @injectable()
@@ -118,7 +118,7 @@ export class UpdateTeamsDataService {
         console.info('Teams Updated Successfully.')
       }
     } catch (e) {
-      if (e instanceof CustomError) { throw e; }
+      if (e instanceof CustomException) { throw e; }
       throw new InternalServerException('Error trying to update teams data.', e);
     }
   }

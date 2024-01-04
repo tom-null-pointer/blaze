@@ -1,8 +1,8 @@
 import {CustomException} from "./custom-exception";
 
-export class BadRequestException extends CustomException {
-  httpCode = 400;
-  httpError = 'Bad Request';
+export class NotFoundException extends CustomException {
+  httpCode = 404;
+  httpError = 'Resource not found.';
   constructor(message?: string) {
     super(message);
   }

@@ -1,0 +1,36 @@
+services:
+  back-prod:
+    container_name: blaze-assesment-prod
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+      target: prod
+    ports:
+      - '3000:3000'
+    depends_on:
+      postgres-prod:
+        condition: service_healthy
+    restart: always
+  postgres-prod:
+    container_name: blaze-assesment-postgres-prod
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=blaze-assesment
+    volumes:
+      - ./back/pgdata-prod:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - main
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod" ]
+      interval: 5s
+      timeout: 60s
+      retries: 15
+      start_period: 3s
+networks:
+  main:
+    driver: bridge

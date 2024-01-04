@@ -12,7 +12,7 @@ import {CreateCoachDto} from "../../../../coach/infra/dtos/create-coach.dto";
 import {CreateMatchDto} from "../../../../match/infra/dtos/create-match.dto";
 import {ApiFootballGetMatchesResponseBodyDto} from "../../dtos/api-football-get-matches-response-body.dto";
 import {BadRequestException} from "../../../../../shared/errors/bad-request.exception";
-import {CustomError} from "../../../../../shared/errors/custom-error";
+import {CustomException} from "../../../../../shared/errors/custom-exception";
 
 @injectable()
 export class FootballApiClient implements IFootballDataSource {
@@ -39,7 +39,7 @@ export class FootballApiClient implements IFootballDataSource {
         return this.buildTeamsFromRawData(data);
       }
     } catch(e) {
-      if (e instanceof CustomError) { throw e; }
+      if (e instanceof CustomException) { throw e; }
       throw new InternalServerException(`Error trying to fetch teams with leagueId: ${leagueId}.`, e);
     }
   }
@@ -66,7 +66,7 @@ export class FootballApiClient implements IFootballDataSource {
       }
       return this.buildCreateMatchDtosFromRawData(data);
     } catch (e) {
-      if (e instanceof CustomError) { throw e; }
+      if (e instanceof CustomException) { throw e; }
       throw new InternalServerException(`Error trying to fetch matches with leagueId: ${leagueId}.`, e);
     }
   }

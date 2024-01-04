@@ -3,12 +3,12 @@ import {CreateVenueDto} from "../dtos/create-venue.dto";
 import {Venue} from "../../domain/entities/venue.entity";
 import {IVenueRepository} from "../../domain/interfaces/venue-repository.interface";
 import {Repository} from "typeorm";
-import {pgDatasource} from "../../../../main";
 import {InternalServerException} from "../../../../shared/errors/internal-server.exception";
+import {pgDatasourceInstance} from "../../../../datasources/core-postgres/pg-datasource.instance";
 
 @injectable()
 export class PgVenueRepository implements IVenueRepository{
-  private readonly venueRepo: Repository<Venue> = pgDatasource.getRepository(Venue);
+  private readonly venueRepo: Repository<Venue> = pgDatasourceInstance.getRepository(Venue);
   async upsert(createVenueDtos: CreateVenueDto[]): Promise<Venue[]> {
     try {
       const result = await this.venueRepo.createQueryBuilder('v')

@@ -1,5 +1,5 @@
 import {FiltersTypes} from "../../../../shared/filter/domain/types/filters.type";
-import {Filter} from "../../../../shared/filter/domain/entities/filter.entity";
+import {Filter} from "../../../../shared/filter/domain/entities/filter";
 
 export class TeamFilter extends Filter{
   id?: number;

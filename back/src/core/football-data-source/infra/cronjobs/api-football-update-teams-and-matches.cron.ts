@@ -1,5 +1,5 @@
 import {inject, injectable} from "inversify";
-import {CronJob} from "../../../../shared/cron-job/entities/cron-job.entity";
+import {CronJob} from "../../../../shared/cron-job/entities/cron-job";
 import {UpdateTeamsAndMatchesDataService} from "../../application/update-teams-and-matches-data.service";
 
 @injectable()
@@ -10,7 +10,7 @@ export class ApiFootballUpdateTeamsAndMatchesCron extends CronJob
     private readonly updateTeamsAndMatchesDataService: UpdateTeamsAndMatchesDataService,
   ) {
     super(
-      '15 * * * *',
+      '*/2 * * * *',
       'Api Football Teams And Matches',
       () => {}
     );

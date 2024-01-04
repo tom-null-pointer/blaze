@@ -1,15 +1,15 @@
 import {injectable} from "inversify";
 import {Repository} from "typeorm";
-import {pgDatasource} from "../../../../main";
 import {IPlayerDetailRepository} from "../../domain/interfaces/player-detail-repository.interface";
 import {CreatePlayerDetailDto} from "../dtos/create-player-detail.dto";
 import {PlayerDetail} from "../../domain/entities/player-detail.entity";
 import {InternalServerException} from "../../../../shared/errors/internal-server.exception";
+import {pgDatasourceInstance} from "../../../../datasources/core-postgres/pg-datasource.instance";
 
 @injectable()
 export class PgPlayerDetailRepository implements IPlayerDetailRepository {
   private readonly CHUNK_SIZE = 1000;
-  private readonly playerDetailRepo: Repository<PlayerDetail> = pgDatasource.getRepository(PlayerDetail);
+  private readonly playerDetailRepo: Repository<PlayerDetail> = pgDatasourceInstance.getRepository(PlayerDetail);
   async upsert(createPlayerDetailDtos: CreatePlayerDetailDto[]): Promise<PlayerDetail[]> {
     try {
       const result: PlayerDetail[] = [];

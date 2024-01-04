@@ -9,3 +9,6 @@ temp/
 */.env
 */.env.*
 !back/.env.example
+back/pgdata
+back/pgdata-*
+back/dist

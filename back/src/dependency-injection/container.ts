@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import {CronJob} from "../shared/cron-job/entities/cron-job.entity";
+import {CronJob} from "../shared/cron-job/entities/cron-job";
 import {ApiFootballUpdateTeamsAndMatchesCron} from "../core/football-data-source/infra/cronjobs/api-football-update-teams-and-matches.cron";
 import {UpdateTeamsDataService} from "../core/football-data-source/application/update-teams-data.service";
 import {FootballApiClient} from "../core/football-data-source/infra/clients/football-api/football-api.client";

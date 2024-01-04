@@ -4,11 +4,11 @@ import {BadRequestException} from "../../../shared/errors/bad-request.exception"
 import {CreateMatchDto} from "../../match/infra/dtos/create-match.dto";
 import {FindTeamsService} from "../../team/domain/services/find-teams.service";
 import {TeamFilter} from "../../team/domain/entities/team-filter.entity";
-import {InFilter} from "../../../shared/filter/domain/entities/in-filter.entity";
+import {InFilter} from "../../../shared/filter/domain/entities/in.filter";
 import {Team} from "../../team/domain/entities/team.entity";
 import {UpsertMatchesService} from "../../match/domain/services/upsert-matches.service";
 import {InternalServerException} from "../../../shared/errors/internal-server.exception";
-import {CustomError} from "../../../shared/errors/custom-error";
+import {CustomException} from "../../../shared/errors/custom-exception";
 
 @injectable()
 export class UpdateMatchesDataService {
@@ -42,7 +42,7 @@ export class UpdateMatchesDataService {
       }
       console.info('Matches Updated Successfully.')
     } catch (e) {
-      if (e instanceof CustomError) { throw e; }
+      if (e instanceof CustomException) { throw e; }
       throw new InternalServerException('Error trying to update matches.', e);
     }
   }

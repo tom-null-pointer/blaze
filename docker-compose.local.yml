@@ -1,0 +1,40 @@
+services:
+  back-local:
+    container_name: blaze-assesment-local
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+      target: local
+    environment:
+      - PG_DATASOURCE_HOST=host.docker.internal
+    ports:
+      - '1234:1234'
+    depends_on:
+      postgres-local:
+        condition: service_healthy
+    restart: always
+    volumes:
+      - ./back:/usr/src/app
+  postgres-local:
+    container_name: blaze-assesment-postgres-local
+    image: postgres:16
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=blaze-assesment
+    volumes:
+      - ./back/pgdata-local:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - main
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod" ]
+      interval: 5s
+      timeout: 60s
+      retries: 15
+      start_period: 3s
+networks:
+  main:
+    driver: bridge

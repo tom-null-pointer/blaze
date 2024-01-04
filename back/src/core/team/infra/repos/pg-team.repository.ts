@@ -1,7 +1,6 @@
 import {ITeamRepository} from "../../domain/interfaces/team-repository.interface";
 import {Repository} from "typeorm";
 import {Team} from "../../domain/entities/team.entity";
-import {pgDatasource} from "../../../../main";
 import {CreateTeamDto} from "../dtos/create-team.dto";
 import {inject, injectable} from "inversify";
 import {InternalServerException} from "../../../../shared/errors/internal-server.exception";
@@ -9,10 +8,11 @@ import {TeamPlayerRelationDto} from "../dtos/team-player-relation.dto";
 import {TeamRelationFilters} from "../../domain/entities/team-relation-filters.entity";
 import {TeamFilter} from "../../domain/entities/team-filter.entity";
 import {MapFilterToPostgresFilterService} from "../../../../shared/filter/application/map-filter-to-postgres-filter.service";
+import {pgDatasourceInstance} from "../../../../datasources/core-postgres/pg-datasource.instance";
 
 @injectable()
 export class PgTeamRepository implements ITeamRepository {
-  private readonly teamRepo: Repository<Team> = pgDatasource.getRepository(Team);
+  private readonly teamRepo: Repository<Team> = pgDatasourceInstance.getRepository(Team);
 
   constructor(
     @inject(MapFilterToPostgresFilterService) private readonly mapFilterToPostgresFilterService: MapFilterToPostgresFilterService

@@ -1,6 +1,6 @@
-import {CustomError} from "./custom-error";
+import {CustomException} from "./custom-exception";
 
-export class InternalServerException extends CustomError {
+export class InternalServerException extends CustomException {
   httpCode = 500;
   httpError = 'Internal Server Error.';
 

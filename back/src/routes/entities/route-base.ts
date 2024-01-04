@@ -1,6 +1,6 @@
 import {injectable} from "inversify";
 import Router from "express-promise-router";
-import {Route} from "./route.entity";
+import {Route} from "./route";
 import {RouteInterface} from "../interfaces/route.interface";
 import {Request, Response} from "express";
 import {HttpSuccessResponse} from "../../shared/responses/http-success.response";
