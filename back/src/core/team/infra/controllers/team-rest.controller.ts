@@ -13,7 +13,7 @@ export class TeamRestController {
   ) {}
 
   async getTeams(req: Request) {
-    const teamRelationsFilter = req.query.allRelations ? new TeamRelationFilters(
+    const teamRelationsFilter = req.query.allRelations === 'true' ? new TeamRelationFilters(
       true,
       {details: {type: true}},
       true,
