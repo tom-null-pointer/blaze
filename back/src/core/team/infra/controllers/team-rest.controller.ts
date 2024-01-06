@@ -12,8 +12,15 @@ export class TeamRestController {
   @inject(GetAllTeamsService) private readonly getTeamsService: GetAllTeamsService,
   ) {}
 
-  async getTeams() {
-    return this.getTeamsService.get(new TeamRelationFilters())
+  async getTeams(req: Request) {
+    const teamRelationsFilter = req.query.allRelations ? new TeamRelationFilters(
+      true,
+      {details: {type: true}},
+      true,
+      true,
+      true,
+    ) : new TeamRelationFilters();
+    return this.getTeamsService.get(teamRelationsFilter);
   }
   async getTeamById(req: Request) {
     if (Number.isNaN(req.params.teamId) || !Number.isInteger(+req.params.teamId)) {
