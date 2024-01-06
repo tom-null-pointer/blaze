@@ -1,6 +1,7 @@
 import { json, urlencoded } from 'body-parser';
 import express from 'express';
 import helmet from 'helmet';
+import cors from 'cors';
 import * as http from 'http';
 import { AppRouterRegister } from './routes/app-router-register';
 import {errorInterceptorMiddleware} from "./shared/middlewares/error-interceptor.middleware";
@@ -16,6 +17,7 @@ export class Server {
     this.express = express();
     this.express.use(json());
     this.express.use(urlencoded({ extended: true }));
+    this.express.use(cors({origin: process.env.CORS_ORIGIN}))
     this.express.use(helmet.xssFilter());
     this.express.use(helmet.noSniff());
     this.express.use(helmet.hidePoweredBy());
