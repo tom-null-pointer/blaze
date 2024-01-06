@@ -26,6 +26,6 @@ export class TeamRestController {
     if (Number.isNaN(req.params.teamId) || !Number.isInteger(+req.params.teamId)) {
       throw new BadRequestException('Param teamId must be an integer.');
     }
-    return this.getTeamsByIdService.get(+req.params.teamId, req.params.property, new TeamRelationFilters(true, true, true, true, true));
+    return this.getTeamsByIdService.get(+req.params.teamId, req.params.property, new TeamRelationFilters(true, {details: { type: true }}, {homeTeam: true, awayTeam: true}, {awayTeam: true, homeTeam: true}, true));
   }
 }
