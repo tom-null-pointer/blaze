@@ -8,6 +8,8 @@ import {TeamDetails} from "../../components/team-details/team-details";
 import {GetTeamInfoService} from "../../modules/team/application/get-team-info.service";
 import {ITeamDatasource} from "../../modules/team/domain/interfaces/team-datasource.interface";
 import './home.scss';
+import {UnknownErrorException} from "../../modules/shared/error/unknown-error.exception";
+import {BaseException} from "../../modules/shared/error/base.exception";
 export function Home() {
   const apiDatasource: ITeamDatasource = new TeamBlazeApiDatasource(new BlazeApiClient());
   const getTeamsService = new GetTeamsService(apiDatasource);
@@ -38,8 +40,17 @@ export function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedTeams = await getTeamsService.get();
-      setTeams(fetchedTeams);
+      try {
+        const fetchedTeams = await getTeamsService.get();
+        setTeams(fetchedTeams);
+      } catch (e) {
+        let error = e;
+        if (!(error instanceof BaseException)) {
+          error = new UnknownErrorException('Error fetching teams at home page.',e);
+        }
+        console.error(error);
+        setError((error as BaseException).userMessage);
+      }
     }
     fetchData().catch((e) => {
       console.error(e);
