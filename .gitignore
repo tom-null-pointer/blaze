@@ -35,3 +35,6 @@ front/node_modules
 front/dist
 front/dist-ssr
 front/*.local
+front/.env.*
+front/.env
+!front/.env.example

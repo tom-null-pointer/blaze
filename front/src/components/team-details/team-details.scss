@@ -1,0 +1,24 @@
+.TeamDetails {
+  &__logo {
+    display: inline-block;
+    width: auto;
+    height: 40px;
+  }
+  &__coaches-venues-wrapper,
+  &__country-founded-wrapper,
+  &__players, &__matches {
+    display: flex;
+  }
+  &__players,
+  &__matches{
+    flex-wrap: wrap;
+    row-gap: 30px;
+    column-gap: 4%;
+    justify-content: flex-start;
+
+  }
+  &__coaches, &__venues,
+  &__country, &__founded{
+    width: 50%;
+  }
+}
