@@ -1,6 +1,6 @@
 services:
   back-local:
-    container_name: blaze-assesment-local
+    container_name: blaze-assesment-back-local
     build:
       context: ./back
       dockerfile: Dockerfile
@@ -35,6 +35,19 @@ services:
       timeout: 60s
       retries: 15
       start_period: 3s
+  front-local:
+    container_name: blaze-assesment-front-local
+    command: npm run dev
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+      target: local
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./front:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always
 networks:
   main:
     driver: bridge

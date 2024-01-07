@@ -1,6 +1,6 @@
 services:
   back-prod:
-    container_name: blaze-assesment-prod
+    container_name: blaze-assesment-back-prod
     build:
       context: ./back
       dockerfile: Dockerfile
@@ -31,6 +31,15 @@ services:
       timeout: 60s
       retries: 15
       start_period: 3s
+  front-prod:
+    container_name: blaze-assesment-front-prod
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+      target: prod
+    ports:
+      - '8080:3000'
+    restart: always
 networks:
   main:
     driver: bridge
